@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legislator Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Legislator Summary</h1>
+
+<form method="get" action="/legislators/search">
+    <input type="text" name="name" placeholder="Search by name..." />
+    <button type="submit">Search</button>
+</form>
+
+{#if summaries.isEmpty}
+    <div class="no-results">No results found.</div>
+{/if}
+
+{#if summaries && !summaries.isEmpty}
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Legislators</th>
+            <th>Supported Bills</th>
+            <th>Opposed Bills</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#for legislator in summaries}
+            <tr>
+                <td>{legislator.id}</td>
+                <td>{legislator.name}</td>
+                <td>{legislator.supportedBills}</td>
+                <td>{legislator.opposedBills}</td>
+            </tr>
+        {/for}
+        </tbody>
+    </table>
+{/if}
+</body>
+</html>
